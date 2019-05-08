@@ -1,0 +1,17 @@
+{
+  "name": "api-node-postgres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Pedro Lucas de Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-load": "^1.1.16",
+    "pg": "^7.9.0"
+  }
+}
