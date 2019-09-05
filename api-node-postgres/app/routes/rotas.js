@@ -1,3 +1,5 @@
+const { check, validationResult } = require('express-validator')
+
 module.exports = function(app){
     app.get('/', (request, response) =>{
         response.json({info : 'API com Node.js, Express e Postgres'})
@@ -31,22 +33,35 @@ module.exports = function(app){
     }
 
     var postUser = function(req, res){
+        const user = req.body;
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()){
+            res.render('/cadastrar').json({ errors: errors.array() , user : user})
+            return
+        }
+
+        //execução sem erros
         var connection = app.infra.connectionFactory;
         var usersDAO = new app.infra.UsersDAO(connection);
         
-        const {name, email} = req.body;
+        //não usar o user, mandar como array
+        const {nome, email} = req.body;
 
-        usersDAO.postUser({name, email}, function(err, res){
+        usersDAO.postUser([nome, email], function(err, resultado){
             if(err){
                 throw err;
             }
-            res.status(201).send(`User added with ID: ${res.insertId}`)
+            res.redirect(`/users/`);
         });
-
     }
 
     app.get('/users', getUsers);
     app.get('/users/:id', getUserById);
-    app.post('/users', postUser);
+    app.post('/users', [
+        check('email') //.assert('email', 'É obrigatório informar o e-mail')
+        , check('nome').isLength({min : 3})//.assert('nome', 'É obrigatório informar o nome com pelo menos 3 letras ')
+    ], postUser);
+    app.get('/cadastrar', (req, res)=>res.render('user.ejs'));
 }
 
