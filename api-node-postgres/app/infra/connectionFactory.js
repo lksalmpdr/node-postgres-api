@@ -2,10 +2,10 @@ const Pool = require('pg').Pool;
 
 function createDBConnection(){
     const pool = new Pool({
-        user: ,
+        user: 'me',
         host: 'localhost',
         database: 'api',
-        password: ,
+        password: 'mario',
         port: 5432,
       });
     return pool;

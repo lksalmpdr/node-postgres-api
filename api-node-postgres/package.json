@@ -1,17 +1,31 @@
 {
   "name": "api-node-postgres",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Pedro Lucas de Almeida",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "ejs": "^2.6.2",
     "express": "^4.16.4",
     "express-load": "^1.1.16",
+    "express-validator": "^6.1.1",
+    "nodemon": "^1.19.1",
     "pg": "^7.9.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lksalmpdr/node-postgres-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lksalmpdr/node-postgres-api/issues"
+  },
+  "homepage": "https://github.com/lksalmpdr/node-postgres-api#readme",
+  "description": ""
 }
