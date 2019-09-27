@@ -1,20 +1,15 @@
 const { check, validationResult } = require('express-validator')
 
 module.exports = function(app){
-    app.get('/', (request, response) =>{
-        response.json({info : 'API com Node.js, Express e Postgres'})
-    });
-
-
-    var getUsers = function(req, res){
-        var connection = app.infra.connectionFactory;
-        var usersDAO = new app.infra.UsersDAO(connection);
-
-        usersDAO.getUsers(function(err, results){
+    let getUsers = (req, res)=>{
+        let connection = app.infra.connectionFactory;
+        let usersDAO = new app.infra.UsersDAO(connection);
+        
+        usersDAO.getUsers(function(err, results, fields){
             if(err){
                 throw err
             }
-            res.status(200).json(results.rows);
+            res.render('users.ejs', { usuarios : results.rows });
         });
     }
 
@@ -55,6 +50,11 @@ module.exports = function(app){
             res.redirect(`/users/`);
         });
     }
+
+
+    app.get('/', (request, response) =>{
+        response.json({info : 'API com Node.js, Express e Postgres'})
+    });
 
     app.get('/users', getUsers);
     app.get('/users/:id', getUserById);
